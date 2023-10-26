@@ -39,11 +39,11 @@ result = execute_read_query(connection, query) # Чтчение запроса �
 
 #//////////////////////////////////////////////////////////////////////////////////////////#
 model = torch.load(r"Food_best_21_09_2023.pt",map_location=torch.device('cpu'))# загружаем модель
-model.eval()# Включаем фазу провкрки, чтобы модель не обучалась
+model.eval()
 
 #//////////////////////////////////////////////////////////////////////////////////////////#
 
-bot = telebot.TeleBot('5934624042:AAGhrAipPV-zaI00fOR-fI3BX4H3-VNc1Co') # API ключ из телеграмма
+bot = telebot.TeleBot(' ') # API ключ из телеграмма
 
 #//////////////////////////////////////////////////////////////////////////////////////////#
 def castom(path):
@@ -57,7 +57,6 @@ def castom(path):
 
 #//////////////////////////////////////////////////////////////////////////////////////////#
 def make_predictions(model, data):
-#    model.eval()
     pred_probs = []
     with torch.no_grad():
         for sample in data:
@@ -82,7 +81,7 @@ dpath = os.path.join(os.path.expanduser("~"), 'Desktop')
 def handle_start(message):
     send = bot.send_message(message.from_user.id, 'Отправь мне фото!')
     bot.register_next_step_handler(send, handle_docs_photo) 
-#
+
 @bot.message_handler(commands=['info'])
 def send_info(message):
     # Создаем объект класса types.ReplyKeyboardMarkup
@@ -126,7 +125,6 @@ def send_additional_info(message):
         25.Яблоко
         26.Яйцо""")
    
-#C:\Users\Pasha\Desktop\user_data
 @bot.message_handler(content_types=['photo'])
 def handle_docs_photo(message):
     if message.photo:
